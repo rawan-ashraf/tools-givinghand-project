@@ -1,0 +1,5 @@
+
+
+<jboss-web>
+    <context-root>/givinghand</context-root>
+</jboss-web>

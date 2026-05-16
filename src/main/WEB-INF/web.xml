@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <context-param>
+        <param-name>resteasy.role.based.security</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!-- DONOR ONLY -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Donor Endpoints</web-resource-name>
+            <url-pattern>/api/donations/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>donor</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- ORGANIZATION ONLY -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Organization Endpoints</web-resource-name>
+            <url-pattern>/api/campaigns/*</url-pattern>
+            <url-pattern>/api/warehouse/*</url-pattern>
+            <url-pattern>/api/inventory/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>organization</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- ROLE DEFINITIONS -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>ApplicationRealm</realm-name>
+    </login-config>
+    <security-role>
+        <role-name>donor</role-name>
+    </security-role>
+    <security-role>
+        <role-name>organization</role-name>
+    </security-role>
+
+</web-app>
